@@ -4,7 +4,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import br.com.caelum.cadastro.model.AlunoModel;
 
-public class FormularioHelper {
+public class FormularioAlunoHelper {
 
 	private EditText nome;
 	private EditText telefone;
@@ -12,7 +12,7 @@ public class FormularioHelper {
 	private EditText site;
 	private SeekBar nota;
 
-	public FormularioHelper(FormularioAlunosActivity actv) {
+	public FormularioAlunoHelper(FormularioAlunosActivity actv) {
 		nome = (EditText) actv.findViewById(R.id.nome);
 		telefone = (EditText) actv.findViewById(R.id.telefone);
 		endereco = (EditText) actv.findViewById(R.id.endereco);

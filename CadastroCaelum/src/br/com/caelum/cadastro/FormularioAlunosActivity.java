@@ -12,7 +12,7 @@ import br.com.caelum.cadastro.model.AlunoModel;
 
 public class FormularioAlunosActivity extends Activity {
 
-	private FormularioHelper helper;
+	private FormularioAlunoHelper helper;
 	private ComumDAO dao;
 
 	@Override
@@ -22,7 +22,7 @@ public class FormularioAlunosActivity extends Activity {
 		setContentView(R.layout.formulario_alunos);
 
 		this.dao = new ComumDAO(this);
-		this.helper = new FormularioHelper(this);
+		this.helper = new FormularioAlunoHelper(this);
 
 		Button botao = (Button) findViewById(R.id.botao);
 		botao.setOnClickListener(new OnClickListener() {

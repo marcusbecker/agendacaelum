@@ -26,6 +26,13 @@ public class AlunoDAO {
 
 	}
 
+	public void deletar(AlunoModel aluno) {
+		String[] arr = { aluno.getId().toString() };
+		SQLiteDatabase db = dao.getWritableDatabase();
+		db.delete(ComumDAO.TABELA, "id=?", arr);
+
+	}
+
 	private ContentValues toValues(AlunoModel aluno) {
 		ContentValues cv = new ContentValues();
 
@@ -43,20 +50,26 @@ public class AlunoDAO {
 		Cursor c = dao.getReadableDatabase().query(ComumDAO.TABELA, COLUNAS,
 				null, null, null, null, null);
 
-		while (c.moveToNext()) {
-			AlunoModel a = new AlunoModel();
-			a.setId(c.getLong(0));
-			a.setNome(c.getColumnName(1));
-			a.setNome(c.getString(1));
-			a.setTelefone(c.getString(2));
-			a.setEndereco(c.getString(3));
-			a.setSite(c.getString(4));
-			a.setNota(c.getDouble(5));
-			a.setFoto(c.getString(6));
+		try {
+			while (c.moveToNext()) {
+				AlunoModel a = new AlunoModel();
+				a.setId(c.getLong(0));
+				a.setNome(c.getColumnName(1));
+				a.setNome(c.getString(1));
+				a.setTelefone(c.getString(2));
+				a.setEndereco(c.getString(3));
+				a.setSite(c.getString(4));
+				a.setNota(c.getDouble(5));
+				a.setFoto(c.getString(6));
 
-			lst.add(a);
+				lst.add(a);
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
 		}
-
+		
 		dao.close();
 		return lst;
 	}

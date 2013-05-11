@@ -1,13 +1,15 @@
 package br.com.caelum.cadastro;
 
-import br.com.caelum.cadastro.dao.AlunoDAO;
-import br.com.caelum.cadastro.dao.ComumDAO;
-import br.com.caelum.cadastro.model.AlunoModel;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -15,12 +17,16 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import br.com.caelum.cadastro.dao.AlunoDAO;
+import br.com.caelum.cadastro.dao.ComumDAO;
+import br.com.caelum.cadastro.model.AlunoModel;
 
 public class ListaAlunosActivity extends Activity {
 
 	private ListView listaAlunos;
 	private ComumDAO dao;
 	private AlunoDAO alunoDAO;
+	private AlunoModel alunoSel;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +48,54 @@ public class ListaAlunosActivity extends Activity {
 
 		});
 
+		registerForContextMenu(listaAlunos);
+		
 		listaAlunos.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
 			public boolean onItemLongClick(AdapterView<?> adp, View v,
 					int posicao, long id) {
 
-				Toast.makeText(ListaAlunosActivity.this,
-						"Clicado em: " + adp.getItemAtPosition(posicao),
-						Toast.LENGTH_SHORT).show();
-
-				return true;
+				alunoSel = (AlunoModel) adp.getItemAtPosition(posicao);
+				
+				return false;
 			}
 
 		});
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		
+		//getMenuInflater().inflate(R.menu.menu_edt_alunos, menu);
+		menu.add("Ligar");
+	    menu.add("Enviar SMS");
+	    menu.add("Achar no Mapa");
+	    menu.add("Navegar no site");
+	    menu.add("Deletar").setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				new AlertDialog.Builder(ListaAlunosActivity.this)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle("Deletar")
+				.setMessage("Deseja mesmo deletar?")
+				.setPositiveButton("Quero",
+				        new DialogInterface.OnClickListener() {
+				            public void onClick(DialogInterface dialog,
+				                    int which) {
+				            	
+				            	alunoDAO.deletar(alunoSel);
+								carregaLista();
+				            }
+				        }).setNegativeButton("Não", null).show();
+				
+
+				return false;
+			}
+		});
+	    menu.add("Enviar E-mail");
 	}
 	
 	@Override
