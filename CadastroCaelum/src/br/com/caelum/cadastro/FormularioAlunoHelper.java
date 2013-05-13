@@ -23,7 +23,6 @@ public class FormularioAlunoHelper {
 
 	public AlunoModel getAlunoPopulado() {
 		AlunoModel aluno = new AlunoModel();
-		// aluno.setId(actv.findViewById(R.id.));
 		aluno.setNome(nome.getEditableText().toString());
 		aluno.setTelefone(telefone.getEditableText().toString());
 		aluno.setEndereco(endereco.getEditableText().toString());
@@ -32,4 +31,13 @@ public class FormularioAlunoHelper {
 
 		return aluno;
 	}
+	
+	public void populaAluno(AlunoModel aluno){
+		nome.setText(aluno.getNome());
+		telefone.setText(aluno.getTelefone());
+		endereco.setText(aluno.getEndereco());
+		site.setText(aluno.getSite());
+		nota.setProgress(Double.valueOf(aluno.getNota()).intValue());
+	}
+	
 }

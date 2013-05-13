@@ -20,9 +20,6 @@ public final class R {
         public static final int activity_horizontal_margin=0x7f040000;
         public static final int activity_vertical_margin=0x7f040001;
     }
-    public static final class divisao {
-        public static final int nome=0x7f090000;
-    }
     public static final class drawable {
         public static final int ic_enviar=0x7f020000;
         public static final int ic_launcher=0x7f020001;
@@ -35,21 +32,22 @@ public final class R {
     }
     public static final class id {
         public static final int botao=0x7f080006;
-        public static final int deletar=0x7f08000a;
-        public static final int email=0x7f08000b;
+        public static final int deletar=0x7f08000b;
+        public static final int email=0x7f08000c;
         public static final int endereco=0x7f080003;
         public static final int imagem=0x7f080000;
-        public static final int ligar=0x7f080007;
-        public static final int mapa=0x7f080009;
-        public static final int menu_enviar_alunos=0x7f08000e;
-        public static final int menu_mapa=0x7f08000d;
-        public static final int menu_novo=0x7f08000c;
-        public static final int menu_preferencias=0x7f080010;
-        public static final int menu_receber_provas=0x7f08000f;
+        public static final int ligar=0x7f080008;
+        public static final int lista=0x7f080007;
+        public static final int mapa=0x7f08000a;
+        public static final int menu_enviar_alunos=0x7f08000f;
+        public static final int menu_mapa=0x7f08000e;
+        public static final int menu_novo=0x7f08000d;
+        public static final int menu_preferencias=0x7f080011;
+        public static final int menu_receber_provas=0x7f080010;
         public static final int nome=0x7f080001;
         public static final int nota=0x7f080005;
         public static final int site=0x7f080004;
-        public static final int sms=0x7f080008;
+        public static final int sms=0x7f080009;
         public static final int telefone=0x7f080002;
     }
     public static final class layout {

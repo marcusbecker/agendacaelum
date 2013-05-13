@@ -18,24 +18,28 @@ public class AlunoDAO {
 		this.dao = dao;
 	}
 
-	public void inserir(AlunoModel aluno) {
+	public void inserirOuAtualizar(AlunoModel aluno) {
 		SQLiteDatabase db = dao.getWritableDatabase();
 		ContentValues cv = toValues(aluno);
 
-		db.insert(ComumDAO.TABELA, null, cv);
-
+		if (aluno.getId() == 0) {
+			db.insert(ComumDAO.TABELA, null, cv);
+		} else {
+			String[] arr = { aluno.getId().toString() };
+			db.update(ComumDAO.TABELA, cv, "id=?", arr);
+		}
 	}
 
 	public void deletar(AlunoModel aluno) {
 		String[] arr = { aluno.getId().toString() };
 		SQLiteDatabase db = dao.getWritableDatabase();
 		db.delete(ComumDAO.TABELA, "id=?", arr);
-
 	}
 
 	private ContentValues toValues(AlunoModel aluno) {
 		ContentValues cv = new ContentValues();
 
+		cv.put("id", aluno.getId());
 		cv.put("nome", aluno.getNome());
 		cv.put("telefone", aluno.getTelefone());
 		cv.put("endereco", aluno.getEndereco());
@@ -54,7 +58,6 @@ public class AlunoDAO {
 			while (c.moveToNext()) {
 				AlunoModel a = new AlunoModel();
 				a.setId(c.getLong(0));
-				a.setNome(c.getColumnName(1));
 				a.setNome(c.getString(1));
 				a.setTelefone(c.getString(2));
 				a.setEndereco(c.getString(3));
@@ -69,7 +72,7 @@ public class AlunoDAO {
 				c.close();
 			}
 		}
-		
+
 		dao.close();
 		return lst;
 	}

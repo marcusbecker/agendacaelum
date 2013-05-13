@@ -1,7 +1,11 @@
 package br.com.caelum.cadastro.model;
 
-public class AlunoModel {
+import java.io.Serializable;
 
+public class AlunoModel implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private Long id;
 	private String nome;
 	private String telefone;

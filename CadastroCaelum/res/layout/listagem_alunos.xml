@@ -5,7 +5,7 @@
     tools:context=".ListaAlunosActivity" >
 
     <ListView
-        android:id="@+divisao/nome"
+        android:id="@+id/lista"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 

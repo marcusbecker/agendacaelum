@@ -16,7 +16,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.dao.ComumDAO;
 import br.com.caelum.cadastro.model.AlunoModel;
@@ -36,16 +35,18 @@ public class ListaAlunosActivity extends Activity {
 		this.dao = new ComumDAO(this);
 		this.alunoDAO = new AlunoDAO(dao);
 
-		listaAlunos = (ListView) findViewById(R.divisao.nome);
+		listaAlunos = (ListView) findViewById(R.id.lista);
 		listaAlunos.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View v,
 					int posicao, long id) {
-
-				Toast.makeText(ListaAlunosActivity.this, "Clicado",
-						Toast.LENGTH_LONG).show();
+				
+				alunoSel = (AlunoModel) adapter.getItemAtPosition(posicao);
+				
+				Intent intent = new Intent(ListaAlunosActivity.this, FormularioAlunosActivity.class);
+				intent.putExtra("alunoSel", alunoSel);
+				startActivity(intent);
 			}
-
 		});
 
 		registerForContextMenu(listaAlunos);
@@ -55,9 +56,7 @@ public class ListaAlunosActivity extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> adp, View v,
 					int posicao, long id) {
-
-				alunoSel = (AlunoModel) adp.getItemAtPosition(posicao);
-				
+			
 				return false;
 			}
 
