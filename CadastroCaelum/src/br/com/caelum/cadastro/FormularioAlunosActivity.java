@@ -17,6 +17,7 @@ public class FormularioAlunosActivity extends Activity {
 	private ComumDAO dao;
 
 	private AlunoModel aluno;
+	private AlunoDAO alunoDAO;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +26,13 @@ public class FormularioAlunosActivity extends Activity {
 		setContentView(R.layout.formulario_alunos);
 
 		this.dao = new ComumDAO(this);
+		this.alunoDAO = new AlunoDAO(dao);
 		this.helper = new FormularioAlunoHelper(this);
 
 		Button btnSalvar = (Button) findViewById(R.id.botao);
 
 		Intent intent = getIntent();
-		aluno = (AlunoModel) intent.getSerializableExtra("alunoSel");
+		aluno = (AlunoModel) intent.getSerializableExtra(Extras.ALUNO_SELECIONADO);
 
 		if (aluno != null) {
 			helper.populaAluno(aluno);
@@ -41,17 +43,12 @@ public class FormularioAlunosActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// Toast.makeText(FormularioAlunosActivity.this, "Nome: " +
-				// aluno.getNome(), Toast.LENGTH_LONG).show();
-				AlunoDAO alunoDAO = new AlunoDAO(dao);
-
-				AlunoModel a = helper.getAlunoPopulado();
-
+				AlunoModel novoAluno = helper.getAlunoPopulado();
 				if (aluno != null) {
-					a.setId(aluno.getId());
+					novoAluno.setId(aluno.getId());
 				}
 
-				alunoDAO.inserirOuAtualizar(a);
+				alunoDAO.inserirOuAtualizar(novoAluno);
 				finish();
 			}
 		});
