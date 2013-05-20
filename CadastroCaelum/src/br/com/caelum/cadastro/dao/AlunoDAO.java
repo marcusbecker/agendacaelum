@@ -45,6 +45,7 @@ public class AlunoDAO {
 		cv.put("endereco", aluno.getEndereco());
 		cv.put("site", aluno.getSite());
 		cv.put("nota", aluno.getNota());
+		cv.put("foto", aluno.getFoto());
 
 		return cv;
 	}
