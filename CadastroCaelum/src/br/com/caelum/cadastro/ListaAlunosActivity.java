@@ -15,8 +15,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import br.com.caelum.cadastro.adapter.ListaAlunosAdapter;
 import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.dao.ComumDAO;
 import br.com.caelum.cadastro.model.AlunoModel;
@@ -146,8 +146,7 @@ public class ListaAlunosActivity extends Activity {
 	}
 
 	private void carregaLista() {
-		ArrayAdapter<AlunoModel> adapter = new ArrayAdapter<AlunoModel>(this,
-				android.R.layout.simple_list_item_1, this.alunoDAO.getLista());
+		ListaAlunosAdapter adapter = new ListaAlunosAdapter(this, this.alunoDAO.getLista());
 		this.listaAlunos.setAdapter(adapter);
 	}
 

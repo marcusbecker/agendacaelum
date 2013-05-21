@@ -22,7 +22,7 @@ public class AlunoDAO {
 		SQLiteDatabase db = dao.getWritableDatabase();
 		ContentValues cv = toValues(aluno);
 
-		if (aluno.getId() == 0) {
+		if (aluno.getId() == null || aluno.getId() == 0) {
 			db.insert(ComumDAO.TABELA, null, cv);
 		} else {
 			String[] arr = { aluno.getId().toString() };
