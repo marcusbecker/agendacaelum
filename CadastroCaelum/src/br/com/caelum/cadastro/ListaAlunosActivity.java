@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -20,6 +21,7 @@ import br.com.caelum.cadastro.adapter.ListaAlunosAdapter;
 import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.dao.ComumDAO;
 import br.com.caelum.cadastro.model.AlunoModel;
+import br.com.caelum.cadastro.receiver.BateriaReceiver;
 
 public class ListaAlunosActivity extends Activity {
 
@@ -27,11 +29,16 @@ public class ListaAlunosActivity extends Activity {
 	private ComumDAO dao;
 	private AlunoDAO alunoDAO;
 	private AlunoModel alunoSel;
+	
+	private BateriaReceiver bateria;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listagem_alunos);
+		
+		bateria = new BateriaReceiver();
+		registerReceiver(bateria, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
 		this.dao = new ComumDAO(this);
 		this.alunoDAO = new AlunoDAO(dao);

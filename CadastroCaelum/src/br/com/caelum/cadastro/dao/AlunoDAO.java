@@ -77,4 +77,15 @@ public class AlunoDAO {
 		dao.close();
 		return lst;
 	}
+
+	public boolean isAluno(String telefone) {
+		Cursor rawQuery = dao.getReadableDatabase().rawQuery(
+				"SELECT telefone from " + ComumDAO.TABELA + " WHERE telefone = ?",
+				new String[] { telefone });
+
+		int total = rawQuery.getCount();
+		rawQuery.close();
+
+		return total > 0;
+	}
 }
