@@ -22,6 +22,7 @@ import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.dao.ComumDAO;
 import br.com.caelum.cadastro.model.AlunoModel;
 import br.com.caelum.cadastro.receiver.BateriaReceiver;
+import br.com.caelum.task.EnviaContatosTask;
 
 public class ListaAlunosActivity extends Activity {
 
@@ -29,16 +30,17 @@ public class ListaAlunosActivity extends Activity {
 	private ComumDAO dao;
 	private AlunoDAO alunoDAO;
 	private AlunoModel alunoSel;
-	
+
 	private BateriaReceiver bateria;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listagem_alunos);
-		
+
 		bateria = new BateriaReceiver();
-		registerReceiver(bateria, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+		registerReceiver(bateria, new IntentFilter(
+				Intent.ACTION_BATTERY_CHANGED));
 
 		this.dao = new ComumDAO(this);
 		this.alunoDAO = new AlunoDAO(dao);
@@ -153,7 +155,8 @@ public class ListaAlunosActivity extends Activity {
 	}
 
 	private void carregaLista() {
-		ListaAlunosAdapter adapter = new ListaAlunosAdapter(this, this.alunoDAO.getLista());
+		ListaAlunosAdapter adapter = new ListaAlunosAdapter(this,
+				this.alunoDAO.getLista());
 		this.listaAlunos.setAdapter(adapter);
 	}
 
@@ -169,6 +172,10 @@ public class ListaAlunosActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.menu_novo:
 			startActivity(new Intent(this, FormularioAlunosActivity.class));
+			break;
+
+		case R.id.menu_enviar_alunos:
+			 new EnviaContatosTask(this).execute();
 			break;
 
 		default:
