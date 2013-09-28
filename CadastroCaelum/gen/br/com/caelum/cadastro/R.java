@@ -37,23 +37,24 @@ public final class R {
     }
     public static final class id {
         public static final int botao=0x7f0a0006;
-        public static final int deletar=0x7f0a000c;
-        public static final int email=0x7f0a000d;
+        public static final int deletar=0x7f0a000d;
+        public static final int email=0x7f0a000e;
         public static final int endereco=0x7f0a0003;
         public static final int foto=0x7f0a0007;
+        public static final int fundo=0x7f0a0008;
         public static final int imagem=0x7f0a0000;
-        public static final int ligar=0x7f0a0009;
-        public static final int lista=0x7f0a0008;
-        public static final int mapa=0x7f0a000b;
-        public static final int menu_enviar_alunos=0x7f0a0010;
-        public static final int menu_mapa=0x7f0a000f;
-        public static final int menu_novo=0x7f0a000e;
-        public static final int menu_preferencias=0x7f0a0012;
-        public static final int menu_receber_provas=0x7f0a0011;
+        public static final int ligar=0x7f0a000a;
+        public static final int lista=0x7f0a0009;
+        public static final int mapa=0x7f0a000c;
+        public static final int menu_enviar_alunos=0x7f0a0011;
+        public static final int menu_mapa=0x7f0a0010;
+        public static final int menu_novo=0x7f0a000f;
+        public static final int menu_preferencias=0x7f0a0013;
+        public static final int menu_receber_provas=0x7f0a0012;
         public static final int nome=0x7f0a0001;
         public static final int nota=0x7f0a0005;
         public static final int site=0x7f0a0004;
-        public static final int sms=0x7f0a000a;
+        public static final int sms=0x7f0a000b;
         public static final int telefone=0x7f0a0002;
     }
     public static final class layout {

@@ -2,8 +2,8 @@ package br.com.caelum.cadastro.adapter;
 
 import java.util.List;
 
-import br.com.caelum.cadastro.R;
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import br.com.caelum.cadastro.R;
 import br.com.caelum.cadastro.model.AlunoModel;
 
 public class ListaAlunosAdapter extends BaseAdapter {
@@ -42,25 +43,33 @@ public class ListaAlunosAdapter extends BaseAdapter {
 	public View getView(int posicao, View convertView, ViewGroup parent) {
 		View view = activity.getLayoutInflater().inflate(R.layout.item, null);
 		if (posicao % 2 == 0) {
-		    view.setBackgroundColor(activity.getResources().
-		        getColor(R.color.linha_par));
+			view.setBackgroundColor(activity.getResources().getColor(
+					R.color.linha_par));
 		}
-		
 		AlunoModel aluno = alunos.get(posicao);
 		TextView nome = (TextView) view.findViewById(R.id.nome);
 		ImageView foto = (ImageView) view.findViewById(R.id.foto);
-		
+
 		nome.setText(aluno.getNome());
-		
-		if(aluno.getFoto() != null){
+
+		if (aluno.getFoto() != null) {
 			Bitmap imagem = BitmapFactory.decodeFile(aluno.getFoto());
 			foto.setImageBitmap(Bitmap.createScaledBitmap(imagem, 50, 50, true));
-			
-		}else{
-			Bitmap imagem = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_no_image);
+
+		} else {
+			Bitmap imagem = BitmapFactory.decodeResource(
+					activity.getResources(), R.drawable.ic_no_image);
 			foto.setImageBitmap(imagem);
 		}
-		
+
+		if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			TextView telefone = (TextView) view.findViewById(R.id.telefone);
+			TextView site = (TextView) view.findViewById(R.id.site);
+			
+			telefone.setText(aluno.getTelefone());
+			site.setText(aluno.getSite());
+		}
+
 		return view;
 	}
 
