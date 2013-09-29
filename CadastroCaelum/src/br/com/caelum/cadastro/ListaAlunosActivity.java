@@ -178,6 +178,11 @@ public class ListaAlunosActivity extends Activity {
 			 new EnviaContatosTask(this).execute();
 			break;
 
+		case R.id.menu_receber_provas:
+	        Intent provas = new Intent(this, ProvasActivity.class);
+	        startActivity(provas);
+	        break;
+			
 		default:
 			break;
 		}
