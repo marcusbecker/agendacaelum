@@ -1,30 +1,36 @@
 package br.com.caelum.cadastro.fragment;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import br.com.caelum.cadastro.R;
+import br.com.caelum.cadastro.mapa.Localizador;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapaFragment extends FragmentActivity {
+public class MapaFragment extends SupportMapFragment {
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.map_layout);
+	public void onResume() {
+		super.onResume();
 
-		SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.mapa);
+		LatLng latLng = new Localizador(this.getActivity())
+				.getCordenada("Av. Dqa. de Goiás, São Paulo");
 
-		GoogleMap mapa = fragment.getMap();
+		centralizar(latLng);
+	}
 
-		mapa.addMarker(new MarkerOptions().title("Caelum")
-				.snippet("Ensino e Inovação")
-				.position(new LatLng(-23.588305, -46.632395)));
+	private void centralizar(LatLng latLng) {
+		GoogleMap map = getMap();
+		CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latLng, 15);
+		map.animateCamera(update);
+	}
 
+	public void onResumeLatLng() {
+
+		GoogleMap map = getMap();
+		LatLng latLng = new LatLng(-23.61071, -46.70342);
+		CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latLng, 15);
+		map.animateCamera(update);
 	}
 }
