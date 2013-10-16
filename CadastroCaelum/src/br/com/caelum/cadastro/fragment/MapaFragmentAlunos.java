@@ -1,6 +1,10 @@
 package br.com.caelum.cadastro.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.caelum.cadastro.mapa.Localizador;
+import br.com.caelum.cadastro.model.AlunoModel;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -9,7 +13,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapaFragment extends SupportMapFragment {
+public class MapaFragmentAlunos extends SupportMapFragment {
+
+	private List<AlunoModel> alunos = new ArrayList<AlunoModel>(0);
+
+	public List<AlunoModel> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<AlunoModel> alunos) {
+		this.alunos = alunos;
+	}
 
 	@Override
 	public void onResume() {
@@ -17,12 +31,15 @@ public class MapaFragment extends SupportMapFragment {
 
 		LatLng latLng = null;
 
-		latLng = getLatLngByAddress("Av. Dqa. de Goiás, São Paulo");
+		for (AlunoModel aluno : alunos) {
+			latLng = getLatLngByAddress(aluno.getEndereco());
+			addMarker(latLng, aluno.getNome(), "");
 
-		centralizar(latLng);
+		}
 
-		addMarker(latLng, "ClickIsobar",
-				"Bringing people and brands together like never before.");
+		if (latLng != null) {
+			centralizar(latLng);
+		}
 
 	}
 
