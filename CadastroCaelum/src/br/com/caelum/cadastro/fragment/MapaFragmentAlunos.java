@@ -3,6 +3,8 @@ package br.com.caelum.cadastro.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.os.Bundle;
+import br.com.caelum.cadastro.mapa.AtualizadorDeLocalizacao;
 import br.com.caelum.cadastro.mapa.Localizador;
 import br.com.caelum.cadastro.model.AlunoModel;
 
@@ -16,6 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapaFragmentAlunos extends SupportMapFragment {
 
 	private List<AlunoModel> alunos = new ArrayList<AlunoModel>(0);
+	private AtualizadorDeLocalizacao atualizador;
 
 	public List<AlunoModel> getAlunos() {
 		return alunos;
@@ -23,6 +26,19 @@ public class MapaFragmentAlunos extends SupportMapFragment {
 
 	public void setAlunos(List<AlunoModel> alunos) {
 		this.alunos = alunos;
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		atualizador = new AtualizadorDeLocalizacao(this.getActivity(), this);
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		atualizador.cancelar();
 	}
 
 	@Override
@@ -49,7 +65,7 @@ public class MapaFragmentAlunos extends SupportMapFragment {
 		return latLng;
 	}
 
-	private void centralizar(LatLng latLng) {
+	public void centralizar(LatLng latLng) {
 		GoogleMap map = getMap();
 		CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latLng, 15);
 		map.animateCamera(update);
